@@ -1,0 +1,37 @@
+'''Motion cut PROJECT - 4'''
+
+import random
+import string
+
+def generate_password(length=12):
+    uppercase_letters = string.ascii_uppercase
+    lowercase_letters = string.ascii_lowercase
+    digits = string.digits
+    special_characters = string.punctuation
+
+    all_characters = uppercase_letters + lowercase_letters + digits + special_characters
+
+
+    password = ''.join(random.choice(all_characters) for _ in range(length))
+    return password
+
+def print_colored(text, color_code):
+    print(f"\033[{color_code}m{text}\033[0m")
+
+def main():
+    print_colored("Password Generator", "1;37;40")  
+
+    try:
+        password_length = int(input("Enter the desired password length: "))
+        num_passwords = int(input("Enter the number of passwords to generate: "))
+    except ValueError:
+        print_colored("Invalid input. Please enter valid numeric values.", "1;31;40")  
+        return
+
+    passwords = [generate_password(password_length) for _ in range(num_passwords)]
+
+    print_colored("\nGenerated Passwords:", "1;32;40") 
+    for i, password in enumerate(passwords, start=1):
+        print_colored(f"Password {i}: {password}", "1;37;40") 
+if __name__ == "__main__":
+    main()
